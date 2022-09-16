@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.2/socket.io.js"
+    ></script>
+  </head>
+  <body>
+    <img id="play" />
+    <div id="logger" style="visibility: hidden"></div>
+  </body>
+  <script type="text/javascript">
+    var socket = io();
+    socket.on("stream", function (image) {
+      $("#play").attr("src", image);
+      $("#logger").text(image);
+    });
+  </script>
+</html>
