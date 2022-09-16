@@ -1,18 +1,14 @@
-let express = require( 'express' );
-let app = express();
-let server = require( 'http' ).Server( app );
-let io = require( 'socket.io' )( server );
-let stream = require( './ws/stream' );
-let path = require( 'path' );
-let favicon = require( 'serve-favicon' );
+const express = require('express');
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+const port = process.env.PORT || 4000;
 
-let __dirname = "templates"
-
-app.get( '/', ( req, res ) => {
-    res.sendFile( __dirname + '/index.html' );
-} );
-
-
-io.of( '/stream' ).on( 'connection', stream );
-
-server.listen( 3000 );
+io.on("connection" , (socket)=>{
+  socket.on('stream' , (image)=>{
+    socket.emit('stream', image);
+  })
+})
+server.listen(port , ()=>{
+  console.log("Server running on port : " + port);
+})
