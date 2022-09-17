@@ -1,19 +1,39 @@
-
 version: 2.1
 
+orbs:
+  node: circleci/node@14.15.1
+
 jobs:
-  getting-started:
-    docker:
-      - image: ~/
+  build:
+    working_directory: ~/sohbet
+    executor: node/default
     steps:
+      - checkout
+      - node/install-npm
+      - node/install-packages:
+          app-dir: ~/sohbet
+          cache-path: node_modules
+          override-ci-command: npm i
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  test:
+    docker:
+      - image: cimg/node:current
+    steps:
+      - attach_workspace:
+          at: .
       - run:
-          name: Getting Started
-          command: |
-            echo "Your orb is now building on CircleCI"
-            echo "This is a temporary configuration file. Continue with the orb-init.sh script and follow the README.md to publish your orb."
-            npm install
-            npm start
+          name: Test
+          command: npm test
+
 workflows:
-  setup:
+  version: 2
+  build_and_test:
     jobs:
-      - getting-started
+      - build
+      - test:
+          requires:
+            - build
