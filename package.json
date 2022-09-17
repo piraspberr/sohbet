@@ -1,0 +1,24 @@
+{
+  "name": "sohbet_video_call",
+  "version": "1.0.0",
+  "description": "this is simple video streamer",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Ylyas Yylkybayev",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "express-ejs-layouts": "^2.5.1",
+    "ytdl-core": "^4.10.1",
+    "socket.io": "^4.5.2"
+  },
+  "engines": {
+    "node": "14.15.1",
+    "npm": "6.14.8"
+  }
+}
