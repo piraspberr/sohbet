@@ -9,6 +9,10 @@ jobs:
           name: Install npm dependencies
           command: |
             npm install --save
+      - run:
+          name: Deploy
+          command: |
+            npm start
 workflows:
   build_test:
     jobs:
