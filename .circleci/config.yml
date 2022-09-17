@@ -4,7 +4,7 @@ version: 2.1
 jobs:
   getting-started:
     docker:
-      - image: circleci/node
+      - image: ~/
     steps:
       - run:
           name: Getting Started
