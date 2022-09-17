@@ -1,14 +1,25 @@
-const express = require('express');
-const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
-const port = process.env.PORT || 4000;
+var express = require("express");
+var app = new express();
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
 
-io.on("connection" , (socket)=>{
-  socket.on('stream' , (image)=>{
-    socket.emit('stream', image);
-  })
-})
-server.listen(port , ()=>{
-  console.log("Server running on port : " + port);
-})
+var port = process.env.port || 3000;
+
+app.use(express.static(__dirname + "/public" ));
+
+app.get('/',function(req,res){
+res.redirect('index.html');
+});
+
+
+io.on('connection',function(socket){
+
+    socket.on('stream',function(image){
+        socket.broadcast.emit('stream',image);  
+    });
+
+});
+
+http.listen(port,function(){
+console.log("Server running at port "+ port);
+});
